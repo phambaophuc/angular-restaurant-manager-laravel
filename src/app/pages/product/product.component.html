@@ -1,0 +1,47 @@
+<div class="table-responsive">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Mã </th>
+            <td mat-cell *matCellDef="let product" class="text-truncate">
+                {{product.id}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Tên sản phẩm </th>
+            <td mat-cell *matCellDef="let product" class="text-truncate" title="{{product.name}}">
+                {{product.name}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Giá tiền </th>
+            <td mat-cell *matCellDef="let product" class="text-truncate"> {{product.price | currency: '$'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Loại </th>
+            <td mat-cell *matCellDef="let product" class="text-truncate"> {{product.category}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="fw-bold">Thao tác</th>
+            <td mat-cell *matCellDef="let product" class="text-truncate">
+                <button mat-icon-button color="primary">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons
+    aria-label="Select page of periodic elements">
+</mat-paginator>

@@ -1,0 +1,65 @@
+<div class="table-responsive">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Mã </th>
+            <td mat-cell *matCellDef="let order" class="text-truncate">
+                {{order.id}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="table_id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate"> Số bàn </th>
+            <td mat-cell *matCellDef="let order" class="text-truncate">
+                {{order.table}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="customer_name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Trạng thái </th>
+            <td mat-cell *matCellDef="let order" class="text-truncate">
+                {{ order.customer_name }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Trạng thái </th>
+            <td mat-cell *matCellDef="let order" class="text-truncate">
+                {{ getStatusTranslation(order.status) }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Thời gian đặt </th>
+            <td mat-cell *matCellDef="let order" class="text-truncate"> {{formatDateTime(order.created_at)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="updatedAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Thời gian cập nhật </th>
+            <td mat-cell *matCellDef="let order" class="text-truncate"> {{formatDateTime(order.updated_at)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="fw-bold">Thao tác</th>
+            <td mat-cell *matCellDef="let order" class="text-truncate">
+                <button mat-icon-button title="Xem chi tiết" color="primary" (click)="openOrderDetails(order)">
+                    <mat-icon>info</mat-icon>
+                </button>
+                <button *ngIf="order.status.toLowerCase() !== 'completed'" mat-icon-button title="Cập nhật trạng thái"
+                    (click)="updateOrderStatus(order.id, order.status)">
+                    <mat-icon>task_alt</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" title="Xoá đơn hàng" (click)="deleteOrderById(order.id)">
+                    <mat-icon>delete_forever</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons
+    aria-label="Select page of periodic elements">
+</mat-paginator>

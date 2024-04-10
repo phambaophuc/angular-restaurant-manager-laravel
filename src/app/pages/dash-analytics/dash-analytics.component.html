@@ -1,0 +1,51 @@
+<div class="row">
+    <!-- order-card start -->
+    <div class="col-md-6 col-xl-3" *ngFor="let card of cards">
+        <app-card [hidHeader]="true" cardClass="{{ card.background }} order-card">
+            <h6 class="text-white">{{ card.title }}</h6>
+            <h2 class="text-end text-white"><i class="feather {{ card.icon }} float-start"></i><span>{{ card.number
+                    }}</span>
+            </h2>
+            <p class="m-b-0">{{ card.text }}<span class="float-end">{{ card.no }}</span></p>
+        </app-card>
+    </div>
+    <!-- order-card end -->
+
+    <div class="col-md-6 col-lg-4">
+        <app-card [hidHeader]="true" blockClass="text-center">
+            <i class="fa fa-envelope-open text-c-blue d-block f-40"></i>
+            <h4 class="m-t-20"><span class="text-c-blue">8.62k</span> Subscribers</h4>
+            <p class="m-b-20">Your main list is growing</p>
+            <button class="btn btn-primary btn-sm btn-round">Manage List</button>
+        </app-card>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <app-card [hidHeader]="true" blockClass="text-center">
+            <i class="fab fa-twitter text-c-green d-block f-40"></i>
+            <h4 class="m-t-20"><span class="text-c-green">+40</span> Followers</h4>
+            <p class="m-b-20">Your main list is growing</p>
+            <button class="btn btn-success btn-sm btn-round">Check Theme Out</button>
+        </app-card>
+    </div>
+    <!-- account-section end -->
+
+    <div class="col-lg-8 col-md-12">
+        <app-card cardTitle="Đánh giá" blockClass="m-t-10" [options]="false">
+            <ul class="feed-blog ps-0">
+                <li *ngFor="let review of reviews">
+                    <div class="feed-user-img">
+                        <img src="assets/images/user/user.png" class="img-radius" alt="User-Profile-Image" />
+                    </div>
+                    <h6>{{review.customer}}
+                        <small class="text-muted ms-1 me-2">{{formatDateTime(review.createdAt)}}</small>
+                    </h6>
+                    <p>
+                        <span style="color: yellow;">{{ '&#9733;'.repeat(review.rating) }}</span>
+                        <span style="color: grey;">{{ '&#9734;'.repeat(5 - review.rating) }}</span>
+                    </p>
+                    <p class="m-b-15 m-t-15">{{review.comment}}</p>
+                </li>
+            </ul>
+        </app-card>
+    </div>
+</div>

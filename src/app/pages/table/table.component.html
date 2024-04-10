@@ -1,0 +1,48 @@
+<div class="table-responsive">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Số bàn </th>
+            <td mat-cell *matCellDef="let table" class="text-truncate">
+                {{table.id}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Số bàn </th>
+            <td mat-cell *matCellDef="let table" class="text-truncate">
+                {{table.name}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="numberOfSeats">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold"> Số chỗ ngồi </th>
+            <td mat-cell *matCellDef="let table" class="text-truncate">
+                Có {{table.number_of_seats}} chỗ ngồi
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="fw-bold text-truncate">Trạng thái</th>
+            <td mat-cell *matCellDef="let table" class="text-truncate">
+                {{getStatusTranslation(table.status)}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="fw-bold">Thao tác</th>
+            <td mat-cell *matCellDef="let order" class="text-truncate">
+                <button mat-icon-button title="Xem thông tin" color="primary">
+                    <mat-icon>info</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons
+    aria-label="Select page of periodic elements">
+</mat-paginator>

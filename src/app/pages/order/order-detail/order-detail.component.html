@@ -1,0 +1,29 @@
+<div class="p-4 order-list">
+    <div class="d-flex justify-content-around">
+        <h4 class="text-center mb-4">Chi tiết đơn hàng</h4>
+    </div>
+
+    <div class="row" *ngFor="let item of products; let last = last">
+        <div class="col">
+            <img [src]="item.image_url" class="mx-auto d-block" width="150px">
+        </div>
+        <div class="col d-flex align-items-center">
+            <div class="me-3">
+                <p class="mb-0 text-truncate"><strong>Tên:</strong> {{ item.name }}</p>
+                <p class="mb-0 text-truncate"><strong>Giá:</strong>
+                    {{ item.price | currency: '$' }}
+                </p>
+                <p class="mb-0 text-truncate"><strong>Số lượng:</strong>
+                    {{ item.pivot.quantity }}
+                </p>
+            </div>
+        </div>
+        <mat-divider class="my-3" *ngIf="!last"></mat-divider>
+    </div>
+
+    <hr>
+
+    <div class="text-end mt-4">
+        <h4>Tổng cộng: <span class="total-amount">{{ data.total_price | currency: '$' }}</span></h4>
+    </div>
+</div>
