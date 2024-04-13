@@ -36,6 +36,17 @@ export class OrderComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.initSocket();
+        this.getAllOrders();
+
+        this.echo.channel('laravel_database_order')
+            .listen('.App\\Events\\OrderCreated', (data: any) => {
+                this.getAllOrders();
+                this.toastr.success('Có đơn hàng mới kìa!', 'New Order.');
+            });
+    }
+
+    initSocket() {
         this.echo = new Echo({
             broadcaster: 'socket.io',
             client: require('socket.io-client'),
@@ -45,12 +56,6 @@ export class OrderComponent implements OnInit {
         this.echo.connector.socket.on('connect', () => {
             console.log('Connected to Laravel Echo Server');
         });
-
-        this.echo.connector.socket.on('connect_error', (error: any) => {
-            console.error('Connection error:', error);
-        });
-
-        this.getAllOrders();
     }
 
     getAllOrders() {
