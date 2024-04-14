@@ -45,12 +45,13 @@
                 <button mat-icon-button title="Xem chi tiết" color="primary" (click)="openOrderDetails(order)">
                     <mat-icon>info</mat-icon>
                 </button>
-                <button *ngIf="order.status.toLowerCase() !== 'completed'" mat-icon-button title="Cập nhật trạng thái"
-                    (click)="updateOrderStatus(order.id, order.status)">
+                <button *ngIf="order.status.toLowerCase() !== 'completed' && order.status.toLowerCase() !== 'cancelled'"
+                    mat-icon-button title="Cập nhật trạng thái" (click)="updateOrderStatus(order.id, order.status)">
                     <mat-icon>task_alt</mat-icon>
                 </button>
-                <button mat-icon-button color="warn" title="Xoá đơn hàng" (click)="deleteOrderById(order.id)">
-                    <mat-icon>delete_forever</mat-icon>
+                <button *ngIf="order.status.toLowerCase() !== 'completed' && order.status.toLowerCase() !== 'cancelled'"
+                    mat-icon-button color="warn" title="Huỷ đơn hàng" (click)="cancelOrder(order.id)">
+                    <mat-icon>close</mat-icon>
                 </button>
             </td>
         </ng-container>

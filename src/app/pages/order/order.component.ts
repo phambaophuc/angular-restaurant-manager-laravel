@@ -84,7 +84,7 @@ export class OrderComponent implements OnInit {
 
     updateOrderStatus(id: string, status: Status) {
         if (status.toLowerCase() === 'pending') {
-            this.orderService.updateOrderStatus(id, Status.PROCESSING)
+            this.orderService.updateOrderStatus(id, Status.PREPARING)
                 .subscribe(() => {
                     this.toastr.success('Đã cập nhật trạng thái!', 'Updated!');
                     this.getAllOrders();
@@ -96,6 +96,14 @@ export class OrderComponent implements OnInit {
                     this.getAllOrders();
                 });
         }
+    }
+
+    cancelOrder(id: string) {
+        this.orderService.updateOrderStatus(id, Status.CANCELLED)
+            .subscribe(() => {
+                this.toastr.success('Đã huỷ đơn hàng!', 'Updated!');
+                this.getAllOrders();
+            });
     }
 
     // private updateOrderStatus(updatedOrder: any): void {
@@ -118,8 +126,9 @@ export class OrderComponent implements OnInit {
     getStatusTranslation(status: string): string {
         const translations: StatusTranslations = {
             'pending': 'Đang chờ',
-            'processing': 'Đang chuẩn bị',
-            'completed': 'Đã hoàn thành'
+            'preparing': 'Đang chuẩn bị',
+            'completed': 'Đã hoàn thành',
+            'cancelled': 'Đã huỷ'
         };
 
         return translations[status.toLowerCase()] || status;
@@ -136,7 +145,8 @@ export class OrderComponent implements OnInit {
 
 interface StatusTranslations {
     pending: string;
-    processing: string;
+    preparing: string;
     completed: string;
+    cancelled: string;
     [key: string]: string;
 }
