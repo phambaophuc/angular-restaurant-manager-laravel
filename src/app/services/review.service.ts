@@ -16,8 +16,4 @@ export class ReviewService {
     getAllReviews(): Observable<Review[]> {
         return this.httpClient.get<Review[]>(this.apiURL);
     }
-
-    getTop6NewReviews(): Observable<Review[]> {
-        return this.httpClient.get<Review[]>(`${this.apiURL}/top-6`);
-    }
 }

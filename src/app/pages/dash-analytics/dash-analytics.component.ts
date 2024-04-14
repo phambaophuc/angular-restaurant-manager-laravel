@@ -20,8 +20,8 @@ export class DashAnalyticsComponent implements OnInit {
 
     ngOnInit(): void {
         this.reviewService.getAllReviews().subscribe(
-            (reviews) => {
-                this.reviews = reviews;
+            (data: any) => {
+                this.reviews = data.reviews;
             }
         );
     }

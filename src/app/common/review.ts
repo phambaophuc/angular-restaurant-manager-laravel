@@ -4,5 +4,5 @@ export interface Review {
     comment: string;
     rating: number;
     emotion: string;
-    createdAt: string;
+    created_at: string;
 }
